@@ -11,6 +11,8 @@
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
+    
+    <script src="https://www.mercadopago.com/v2/security.js" view="detail"></script>
 
     <link rel="stylesheet" href="./assets/category-landing.css" media="screen, print">
 
@@ -100,7 +102,7 @@
                                             <div class="clearfix image-list xs-no-js as-util-relatedlink relatedlink" data-relatedlink="6|Powerbeats3 Wireless Earphones - Neighborhood Collection - Brick Red|MPXP2">
                                                 <div class="as-tilegallery-element as-image-selected">
                                                     <div class=""></div>
-                                                    <img src="./assets/003.jpg" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img'] ?>) 2x);">
+                                                    <img src="<?php echo $_POST[img]?>" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img'] ?>) 2x);">
                                                 </div>
                                                 
                                             </div>
@@ -124,14 +126,37 @@
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo $_POST['price'] ?>
+                                            Precio ($) : <?php echo $_POST['price'] ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo "$" . $_POST['unit'] ?>
+                                            Unid: <?php echo $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button>
-                                </div>
+
+                                    <?php
+                                        // SDK de Mercado Pago
+                                        require __DIR__ .  '/vendor/autoload.php';
+
+                                        // Agrega credenciales
+                                        MercadoPago\SDK::setAccessToken('TEST-7001179014671168-111403-1dd7e7eac0e57b96e0085ae4bc7b072a-450981473');
+
+                                        // Crea un objeto de preferencia
+                                        $preference = new MercadoPago\Preference();
+
+                                        // Crea un ítem en la preferencia
+                                        $item = new MercadoPago\Item();
+                                        $item->title = $_POST['title'];
+                                        $item->quantity = $_POST['unit'];
+                                        $item->unit_price = $_POST['price'];
+                                        $preference->items = array($item);
+                                        $preference->save();
+                                    ?>
+
+                                <script
+                                src="https://www.mercadopago.com.pe/integrations/v1/web-payment-checkout.js"
+                                data-preference-id="<?php echo $preference->id; ?>">
+                                </script>
+                                    </div>
                             </div>
                         </div>
                     </div>
