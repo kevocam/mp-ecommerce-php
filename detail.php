@@ -104,7 +104,7 @@ $preference->save();
 
                                     <button class="as-filter-button" aria-expanded="true" aria-controls="as-search-filters" type="button">
                                         <h2 class=" as-filter-button-text">
-                                            Smartphones
+                                            Smartphones2
                                         </h2>
                                     </button>
 
@@ -159,10 +159,10 @@ $preference->save();
                                     </div>
 
                                   
-                                <script
+                                <!-- <script
                                 src="https://www.mercadopago.com.pe/integrations/v1/web-payment-checkout.js"
                                 data-preference-id="<?php echo $preference->id; ?>">
-                                </script>
+                                </script> -->
                                     </div>
                             </div>
                         </div>
