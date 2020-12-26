@@ -77,7 +77,7 @@
 
                                     <button class="as-filter-button" aria-expanded="true" aria-controls="as-search-filters" type="button">
                                         <h2 class=" as-filter-button-text">
-                                            Smartphones
+                                            Smartphones2
                                         </h2>
                                     </button>
 
@@ -257,12 +257,12 @@
                                                 $15.000
                                             </div>
                                         </div>
-                                        <form action="./detail.php" method="get">
+                                        <form action="./detail.php" method="post">
                                             <input type="hidden" name="img" value="./assets/samsung-galaxy-s9-xxl.jpg">
                                             <input type="hidden" name="title" value="Samsung Galaxy S9">
                                             <input type="hidden" name="price" value="15000">
                                             <input type="hidden" name="unit" value="1">
-                                            <button type="submit" class="mercadopago-button" formmethod="post">Comprar samsung</button>
+                                            <button type="submit" class="mercadopago-button" formmethod="post">Comprar samsung con .</button>
                                         </form>
                                     </div>
                                 </div>
