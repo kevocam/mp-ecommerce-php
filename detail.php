@@ -3,7 +3,7 @@
                                         require __DIR__ .  '/vendor/autoload.php';
 
                                         // Agrega credenciales
-                                        MercadoPago\SDK::setAccessToken('APP_USR-7001179014671168-111403-b75b9f5d8613fd07763c692ea801258a-450981473');
+                                        MercadoPago\SDK::setAccessToken('APP_USR-8208253118659647-112521-dd670f3fd6aa9147df51117701a2082e-677408439');
 
                                         // Crea un objeto de preferencia
                                         $preference = new MercadoPago\Preference();
@@ -12,9 +12,9 @@
                                         
                                         // Crea un ítem en la preferencia
                                         $item = new MercadoPago\Item();
-                                        $item->title = 'Mi producto';
-                                        $item->quantity = 1;
-                                        $item->unit_price = 75.56;
+                                        $item->title = $_POST['title'];
+                                        $item->quantity = $_POST['unit'];
+                                        $item->unit_price = $_POST['price'];
                                         $preference->items = array($item);
                                         $preference->save();
                                     ?>
