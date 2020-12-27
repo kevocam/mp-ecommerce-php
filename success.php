@@ -40,7 +40,7 @@
             height:100vh;
         }
         .main{
-            height:60vh;
+            height:80vh;
             display:flex;
             flex-direction:column;
             justify-content: center;
@@ -51,7 +51,7 @@
             padding:25px;         
         }
         .main img{
-            height:80%;
+            height:60%;
         }
         .main__back{
             font-size:20px;
@@ -82,10 +82,12 @@
                     </div>
                 </div>
             </div>
-            <div class="main">            
+            <div class="main">   
+
+            <!-- https://kevocam-mp-commerce-php.herokuapp.com/success.php?collection_id=12815839719&collection_status=approved&payment_id=12815839719&status=approved&external_reference=null&payment_type=credit_card&merchant_order_id=2148794700&preference_id=677408439-b1a6ecbc-c69d-4efb-b08e-05f93bfcf685&site_id=MPE&processing_mode=aggregator&merchant_account_id=null -->         
     Transacción satisfactoria
-            <p>Orden: <?php echo $_POST['collection_id'] ?></p>
-            <p>Tipo: <?php echo $_POST['payment_type'] ?></p>
+            <p>Orden: <?php echo $_POST[collection_id] ?></p>
+            <p>Tipo: <?php echo $_POST[payment_type] ?></p>
 
                 <img src="./assets/success.png" alt="">
                 <div class="main__back">
