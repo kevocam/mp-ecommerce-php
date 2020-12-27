@@ -20,11 +20,11 @@
     $item->imagen = $_POST['img'];
     $item->quantity = $_POST['unit'];
     $item->unit_price = $_POST['price'];
-    $item->external_reference = "kevocam.seo@gmail.com";
     
-
-
+    
+    
     $preference->items = array($item);
+    $preference->external_reference = "kevocam.seo@gmail.com";
 
     $preference->back_urls = array(
         "success" => "https://kevocam-mp-commerce-php.herokuapp.com/success.php",
