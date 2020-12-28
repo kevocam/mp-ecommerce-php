@@ -42,6 +42,8 @@
         ),
         "installments" => 6
       );
+    
+    $preference->notification_url = 'https://kevocam-mp-commerce-php.herokuapp.com/webhooks.php?source_news=webhooks'; 
 
     $preference->save();
 
