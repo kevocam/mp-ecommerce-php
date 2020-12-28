@@ -7,7 +7,7 @@ if (!empty($post_data)) {
     $handle = fopen($filename, "w");
     fwrite($handle, $post_data);
     fclose($handle);
-    echo $file;
+    echo $filename;
 }
 
 require __DIR__  . '/vendor/autoload.php';
@@ -38,6 +38,7 @@ switch($_POST["type"]) {
 
         }
         
+        
         break;
     case "plan":
         $plan = MercadoPago\Plan::find_by_id($_POST["id"]);
@@ -52,3 +53,6 @@ switch($_POST["type"]) {
 
         break;
 }
+
+?>
+<p>json:<?php  echo $filename;?></p>
