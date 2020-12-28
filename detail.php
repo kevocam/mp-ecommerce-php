@@ -35,10 +35,10 @@
 
     $preference->payment_methods = array(
         "excluded_payment_methods" => array(
-          array("id" => "pagoefectivo_atm")
+          array("id" => "dinners")
         ),
         "excluded_payment_types" => array(
-          array("id" => "diners") 
+          array("id" => "atm") 
         ),
         "installments" => 6
       );
