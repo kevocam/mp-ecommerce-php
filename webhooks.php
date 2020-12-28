@@ -1,59 +1,54 @@
-
 <?php
 
-require __DIR__ .  '/vendor/autoload.php';
+$post_data = $_POST['data'];
+
+if (!empty($post_data)) {
+    $filename = 'response.json';
+    $handle = fopen($filename, "w");
+    fwrite($handle, $post_data);
+    fclose($handle);
+    echo $file;
+}
+
+require __DIR__  . '/vendor/autoload.php';
 
 MercadoPago\SDK::setAccessToken('APP_USR-8208253118659647-112521-dd670f3fd6aa9147df51117701a2082e-677408439');
 
-$type = isset($_GET["type"]) ? $_GET["type"] : isset($_POST["type"]) ? $_POST["type"] : null;
-$id = isset($_GET["id"]) ? $_GET["id"] : isset($_POST["id"]) ? $_POST["id"] : null;
+MercadoPago\SDK::setIntegratorId("dev_2e4ad5dd362f11eb809d0242ac130004");
 
-$datos = [
-    'type' => $_GET['type'],
-    'topic' => $_GET['topic'],
-    'id' => $_GET['id'],
-];
-
-if($_GET['topic']=="payment" || $_GET['topic'=="merchant_order"]){
-    file_put_contents('webhook.log', json_encode($datos) . PHP_EOL,FILE_APPEND);
-}
-
-switch ($type) {
+switch($_POST["type"]) {
     case "payment":
-        $payment = MercadoPago\Payment::find_by_id($id);
-        if (!empty($payment)) {
-            header("HTTP/1.1 200 OK");
+        $payment = MercadoPago\Payment::find_by_id($_POST["id"]);
 
-        } else {
-            header("HTTP/1.1 400 NOT_OK");
+        if(isset($payment->status)){
+            switch($payment->status){
+                case "approved":
+                    //Guardar collection ID
+                    break;
+                
+                case "cancelled":
+                    //Pago cancelado
+                    break;
+
+                case "pending":
+                    //Pendiente
+                    break;
+
+            }
+
         }
+        
         break;
     case "plan":
-        $plan = MercadoPago\Plan::find_by_id($id);
-        if (!empty($plan)) {
-            header("HTTP/1.1 200 OK");
-        } else {
-            header("HTTP/1.1 400 NOT_OK");
-        }
+        $plan = MercadoPago\Plan::find_by_id($_POST["id"]);
+        
         break;
     case "subscription":
-        $plan = MercadoPago\Subscription::find_by_id($id);
-        if (!empty($plan)) {
-            header("HTTP/1.1 200 OK");
-        } else {
-            header("HTTP/1.1 400 NOT_OK");
-        }
+        $plan = MercadoPago\Subscription::find_by_id($_POST["id"]);
+
         break;
     case "invoice":
-        $plan = MercadoPago\Invoice::find_by_id($id);
-        if (!empty($plan)) {
-            header("HTTP/1.1 200 OK");
-        } else {
-            header("HTTP/1.1 400 NOT_OK");
-        }
-        break;
-    default:
-        header("HTTP/1.1 200 OK");
-        break;
+        $plan = MercadoPago\Invoice::find_by_id($_POST["id"]);
 
+        break;
 }
