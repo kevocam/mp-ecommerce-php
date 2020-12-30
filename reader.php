@@ -1,5 +1,5 @@
 <?php
-$fp = fopen("response.json", "r");
+$fp = fopen("notification.json", "r");
 while (!feof($fp)){
     $linea = fgets($fp);
     echo $linea;
