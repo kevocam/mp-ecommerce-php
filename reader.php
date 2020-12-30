@@ -1,5 +1,5 @@
 <?php
-$fp = fopen("webhook.json", "r");
+$fp = fopen("logs.txt", "r");
 while (!feof($fp)){
     $linea = fgets($fp);
     echo $linea;

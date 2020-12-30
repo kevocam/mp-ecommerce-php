@@ -1,43 +1,31 @@
-
-
 <?php
-http_response_code(200);
+// Loading Composer
+require __DIR__ . '/vendor/autoload.php';
+DK::setAccessToken('APP_USR-8208253118659647-112521-dd670f3fd6aa9147df51117701a2082e-677408439');
 
-require('vendor/autoload.php');
+MercadoPago\SDK::
 
-MercadoPago\SDK::setAccessToken('APP_USR-8208253118659647-112521-dd670f3fd6aa9147df51117701a2082e-677408439');
+$file = 'logs.txt';
 
-MercadoPago\SDK::setIntegratorId("dev_2e4ad5dd362f11eb809d0242ac130004");
+$json_event = file_get_contents( 'php://input', true );
+$event = json_decode( $json_event );
 
+if ( isset( $event->type, $event->data->id ) ) {
+    $event_type = $event->type;
+    $event_id = $event->data->id;
 
+    $payment = MercadoPago\Payment::find_by_id( $event_id );
 
-$rawdata = file_get_contents("php://input");
+    $current = file_get_contents( $file );
+    $current .= $event_type . " recibido - ID #" . $payment->id . "\n";
 
-file_put_contents("webhook.json","/---------------------------------------------------\\\n",FILE_APPEND);
-file_put_contents("webhook.json","Llamada:\n",FILE_APPEND);
-file_put_contents("webhook.json","GET:\n",FILE_APPEND);
-file_put_contents("webhook.json",json_encode($_GET) . "\n",FILE_APPEND);
-file_put_contents("webhook.json","POST:\n",FILE_APPEND);
-file_put_contents("webhook.json",json_encode($rawdata) . "\n",FILE_APPEND);
-file_put_contents("webhook.json","---- Resultado ----\n",FILE_APPEND);
-
-if(isset($_GET['topic'])){
-    switch($_GET['topic']){
-        case 'payment':
-            $result = MercadoPago\Payment::find_by_id($_GET['id']);
-            break;
-        case 'merchant_order':
-            $result = MercadoPago\MerchantOrder::find_by_id($_GET['id']);
-            break;
-        default:
-            $result = "Topic no reconocido.";
-        break;
-    }
 } else {
-    $result = "Topic no recibido.";
+    $current = file_get_contents( $file );
+    $current .= "Llamada directa\n";
 }
 
-file_put_contents("webhook.json",json_encode($result) . "\n",FILE_APPEND);
-file_put_contents("webhook.json","\---------------------------------------------------/\n",FILE_APPEND);
+file_put_contents( $file, $current );
 
-?>
+http_response_code( 200 );
+
+
